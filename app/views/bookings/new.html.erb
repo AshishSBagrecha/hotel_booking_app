@@ -1,0 +1,24 @@
+<h1>Book a Room</h1>
+
+<%= form_for @booking do |f| %>
+  <%= hidden_field_tag :hotel_id, params[:hotel_id] %>
+
+  <div class="field">
+    <%= f.label :check_in %>
+    <%= f.date_field :check_in %>
+  </div>
+
+  <div class="field">
+    <%= f.label :check_out %>
+    <%= f.date_field :check_out %>
+  </div>
+
+  <div class="field">
+    <%= f.label :room_count %>
+    <%= f.number_field :room_count %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

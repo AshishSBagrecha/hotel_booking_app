@@ -1,0 +1,98 @@
+<style>
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  /* Link styles */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Button styles */
+  .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+</style>
+
+<h1>Your Bookings</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Hotel</th>
+      <th>Rooms</th>
+      <th>Check-In</th>
+      <th>Check-Out</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td>
+          <% if booking.hotel %>
+            <%= booking.hotel.name %>
+          <% end %>
+        </td>
+    
+        <td><%= booking.num_rooms %></td>
+        <td><%= booking.check_in %></td>
+        <td><%= booking.check_out %></td>
+        <td><%= link_to 'Edit', edit_booking_path(booking), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Cancel', booking, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Booking', new_booking_path(hotel_id: @bookings.first.hotel_id), class: "btn btn-success" %>

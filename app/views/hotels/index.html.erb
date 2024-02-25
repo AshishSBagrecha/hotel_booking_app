@@ -1,0 +1,112 @@
+<div class="container">
+  <h1>Hotels</h1>
+  
+  <form action="" method="get" class="filter-form">
+    <label for="location-filter">Filter by Location:</label>
+    <select id="location-filter" name="location" class="filter-select">
+      <option value="">All Locations</option>
+      <% @locations.each do |location| %>
+        <option value="<%= location %>"><%= location %></option>
+      <% end %>
+    </select>
+    <button type="button" id="filter-button" class="filter-button">Filter</button>
+  </form>
+  
+  <table class="hotel-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="hotel-list">
+      <% @hotels.each do |hotel| %>
+        <tr>
+          <td><%= hotel.name %></td>
+          <td><%= hotel.location %></td>
+          <td><%= link_to "Book a Room", new_booking_path(hotel_id: hotel.id), class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .filter-form {
+    margin-bottom: 20px;
+  }
+
+  .filter-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .filter-button {
+    padding: 8px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .filter-button:hover {
+    background-color: #0056b3;
+  }
+
+  .hotel-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .hotel-table th,
+  .hotel-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .hotel-table th {
+    background-color: #f2f2f2;
+  }
+
+  .btn {
+    padding: 8px 20px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#filter-button').click(function() {
+      var selectedLocation = $('#location-filter').val();
+      $('#hotel-list tr').hide();
+      if (selectedLocation === '') {
+        $('#hotel-list tr').show();
+      } else {
+        $('#hotel-list tr').each(function() {
+          if ($(this).find('td:eq(1)').text() === selectedLocation) {
+            $(this).show();
+          }
+        });
+      }
+    });
+  });
+</script>
